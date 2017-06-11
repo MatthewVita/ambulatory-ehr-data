@@ -9,4 +9,15 @@ This repo also contains a sql script to compile the data into a single sqlite da
 
 Or run build-sqlite.sql within sqlite.
 
+To get an entire patient dataset, run the following with an id:
+
+    SELECT *
+    FROM patient pat 
+    LEFT JOIN diagnosis dia     ON pat.patientid = dia.patientid
+    LEFT JOIN encounter enc     ON pat.patientid = enc.patientid
+    LEFT JOIN prescription pre  ON pat.patientid = pre.patientid
+    LEFT JOIN labresult lab     ON pat.patientid = lab.patientid
+    LEFT JOIN  measurement mea  ON enc.encounterid = mea.encounterid
+    WHERE pat.patientid = ?;
+
 This data, while intended to be nationally representative and clinically accurate, is not guaranteed to be such.  So, it's better for learning or testing methods on than for doing current public health or clinical research.
